@@ -4,29 +4,20 @@ import java.util.Scanner;
 
 public class ArmStrongNumber {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a number: ");
-        int number = scanner.nextInt();
-        scanner.close();
-
-        if (isArmstrong(number)) {
-            System.out.println(number + " is an Armstrong number.");
+        int num = 153;
+        int temp = num;
+        int sum = 0;
+        while (num > 0) {
+            int rem = num % 10;
+            sum = sum + rem * rem * rem;
+            num = num / 10;
+        }
+        if (temp == sum) {
+            System.out.println("Armstrong Number");
         } else {
-            System.out.println(number + " is not an Armstrong number.");
+            System.out.println("Not Armstrong Number");
         }
     }
 
-    public static boolean isArmstrong(int num) {
-        int originalNum = num;
-        int result = 0;
-        int numberOfDigits = String.valueOf(num).length();
 
-        while (num != 0) {
-            int digit = num % 10;
-            result += Math.pow(digit, numberOfDigits);
-            num /= 10;
-        }
-
-        return result == originalNum;
-    }
 }

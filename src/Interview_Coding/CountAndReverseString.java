@@ -1,4 +1,4 @@
-package Day1;
+package Interview_Coding;
 
 public class CountAndReverseString {
 
