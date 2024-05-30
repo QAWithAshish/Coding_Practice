@@ -10,6 +10,15 @@ public class FactorialOfNumber {
         return res;
     }
 
+    //Using ternary operator
+
+  /*  public static int factorial(int n)
+    {
+
+        // single line to find factorial
+        return (n == 1 || n == 0) ? 1 : n * factorial(n - 1);
+    }*/
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -17,5 +26,6 @@ public class FactorialOfNumber {
         int num = sc.nextInt();
         System.out.println("Factorial of " + num + " is "
                 + factorial(num));
+
     }
 }
