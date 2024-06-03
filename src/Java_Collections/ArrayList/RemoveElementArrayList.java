@@ -1,4 +1,4 @@
-package Java_Collections;
+package Java_Collections.ArrayList;
 
 
 //- How to remove the element at a given index in an ArrayList | remove(int index)
@@ -42,6 +42,10 @@ public class RemoveElementArrayList {
         System.out.println("Before using remove all method ::"+subFruitsList);
         subFruitsList.removeAll(subFruitsList);
         System.out.println("Using remove all method ::"+subFruitsList);
+
+        //  - How to clear an ArrayList | clear()
+        fruits.clear();
+        System.out.println("Clear all data from ArrayList => " +fruits);
 
     }
 }

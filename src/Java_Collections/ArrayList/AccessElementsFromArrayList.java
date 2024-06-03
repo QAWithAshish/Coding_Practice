@@ -1,4 +1,4 @@
-package Java_Collections;
+package Java_Collections.ArrayList;
 
 
 //- How to check if an ArrayList is empty using the isEmpty() method.
