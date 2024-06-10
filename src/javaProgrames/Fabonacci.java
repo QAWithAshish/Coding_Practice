@@ -1,19 +1,31 @@
-class fabonacci{
-    public static void main(String args[]){
+package javaProgrames;
 
-        int n1=0,n2=1, sum=0;
+import java.util.Scanner;
 
-        System.out.print(n1+" "+n2);
+class Fibonacci {
+    public static void main(String args[]) {
 
-        for(int i=2;i<10;i++){
-            sum=n1+n2;
-            System.out.print(" "+sum);
-            n1=n2;
-            n2=sum;
-            sum=n1;
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter your number : ");
+        int num = sc.nextInt();
+        printFibonacci(num);
 
+    }
+
+    public static void printFibonacci(int n) {
+        int firstTerm = 0;
+        int secondTerm = 1;
+
+        System.out.print("Fibonacci Series till " + n + " terms: ");
+
+        for (int i = 1; i <= n; ++i) {
+          System.out.print(firstTerm + ", ");
+
+            // Compute the next term
+            int nextTerm = firstTerm + secondTerm;
+            firstTerm = secondTerm;
+            secondTerm = nextTerm;
         }
-
     }
 
 }

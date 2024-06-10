@@ -1,0 +1,327 @@
+1. Choosing the right collection/map
+Refer to the file name "JavaCollectionCheatSheet" and path "src/Java_Collections/JavaCollectionCheatSheet.gif"
+above diagram for choosing the right collection.
+
+You may refer to these questions before choosing the right collection/map.
+Do I need the ordering to remain?
+Will I have null keys/values? Dups?
+Will it be accessed by multiple threads
+Do I need a key/value pair
+Will I need random access?
+Does it allow accessing elements by index?
+Does it offer fast adding and fast removing elements?
+
+2. Code for Interface, not for Implementation
+
+    A. Always use interface type as a reference type.
+    For example, use List, Set, Map interfaces as a reference type.
+    // Better
+    List<String> list = new ArrayList<>();
+
+    // Avoid
+    ArrayList<String> list = new ArrayList<>();
+
+    // Better
+    Set<String> set = new HashSet<>();
+
+    //Avoid
+    HashSet<String> employees = new HashSet<>();
+
+    // Better
+    Map<String,String> map = new HashMap<>();
+
+    //Avoid
+    HashMap<String,String> map = new HashMap<>();
+
+    By declaring a collection using an interface type, the code would be more flexible as you can change the concrete implementation easily when needed, for example:
+    List<String> list = new LinkedList<>();
+    When your code is designed to depend on the List interface, then you can swap among List’s implementations with ease, without modifying the code that uses it.
+
+    B. Always use interface type as a return type
+    For example,
+    public Collection listEmployees() {
+    List<Employee> employees = new ArrayList<>();
+    // add Employees to the list
+    return employees;
+    }
+
+    C. Always use Interface Types as a method argument
+    public void foo(Set<Integer> numbers) {
+    }
+    The flexibility of using interface type for a collection is more visible in the case of method parameters.
+
+3. Use generic type and diamond operator
+
+You can declare a collection of a generic type like this:
+
+    List<Employee> listEmployees = new ArrayList<Employee>();
+
+Since Java 7, the compiler can infer the generic type on the right side from the generic type declared
+on the left side, so you can write:
+
+    List<Employee> listEmployees = new ArrayList<>();
+
+The <> is informally called the diamond operator. This operator is quite useful. Imagine if you have to
+declare a collection like this:
+
+Map<Integer, Map<String, Employee>> map = new HashMap<Integer, Map<String, Employee>>();
+
+You see, without the diamond operator, you have to repeat the same declaration twice, which makes the
+code unnecessarily verbose. So the diamond operator saves you:
+
+    Map<Integer, Map<String, Employee>> map = new HashMap<>();
+
+4. Prefer isEmpty() over a size()
+
+Avoid checking the emptiness of a collection like this:
+if (listOfEmployees.size() > 0) {
+    // dos something if the list is not empty
+}
+
+Instead, you should use the isEmpty() method:
+      if (!listOfEmployees.isEmpty()) {
+    // dos something if the list is not empty
+      }
+
+There’s no performance difference between isEmpty() and size(). The reason is the readability of the code.
+
+5. Return empty collections or arrays, not nulls
+Some APIs intentionally return a null reference to indicate that instances are unavailable.
+This practice can lead to denial-of-service vulnerabilities when the client code fails to explicitly
+handle the null return value case.
+
+If a method is designed to return a collection, it should not return null in case there’s no element in the collection.
+
+Consider the following method returns null:
+public List<Student> findStudents(String className) {
+    List<Student> listStudents = null;
+
+    if (//students are found//) {
+        // add students to the lsit
+    }
+
+    return listStudents;
+}
+Here, the above method returns null if no student is found. The key point here is,
+a null value should not be used to indicate no result.
+
+The best practice is, returning an empty collection to indicate no result.
+The above code can be easily corrected by initializing the collection:
+
+    List<Student> listStudents = new ArrayList<>;
+    Or
+    Collections.empty();
+
+In summary, never return null in place of an empty array or collection.
+It makes your API more difficult to use and more prone to error, and it has no performance advantages.
+
+6. Do not use the classic for loop
+
+There’s nothing wrong if you write code to iterate a list collection like this:
+for (int i = 0; i < listStudents.size(); i++) {
+    Student aStudent = listStudents.get(i);
+
+    // do something with aStudent
+}
+
+However, this is considered bad practice because using the counter variable may lead to
+potential bugs if altered somewhere inside the loop. Also, this kind of loop is not object-oriented
+since every collection has its own iterator. So it’s recommended to use an iterator like the following code:
+
+    Iterator<Student> iterator = listStudents.iterator();
+
+    while (iterator.hasNext()) {
+        Student nextStudent = iterator.next();
+
+         // do something with next student
+        }
+Also, the iterator may throw ConcurrentModificationException if the collection is modified by another
+ thread after the iterator is created, which eliminates potential bugs.
+
+Now, it’s better to use the enhanced for loop like this:
+
+    for (Student aStudent : listStudents) {
+         // do something with aStudent
+     }
+
+As you can see, the enhanced for loop is more succinct and readable though it uses an iterator behind the scenes.
+
+7. Favor using forEach() with Lambda expressions
+
+Since Java 8, every collection now provides the forEach() method that encapsulates the iteration
+ code inside the collection itself (internal iteration), and you just pass a Lambda expression to this method.
+ This makes the iteration code even more compact, more flexible, and more powerful.
+
+Here’s an example:
+
+    List<String> fruits = Arrays.asList("Banana", "Lemon", "Orange", "Apple");
+
+    fruits.forEach(fruit -> System.out.println(fruit));
+
+This is equivalent to the following enhanced for loop:
+        for (String fruit : fruits) {
+            System.out.println(fruit);
+        }
+
+So I encourage you to use the forEach() method for iterating a collection in a way that helps you focus on your code,
+ not on the iteration.
+
+8. Overriding equals() and hashCode() properly
+
+You must override hashCode() in every class that overrides equals(). Failure to do so will result in a
+violation of the general contract for Object.hashCode(), which will prevent your class from functioning
+properly in conjunction with all hash-based collections, including HashMap, HashSet, and Hashtable.
+
+Read more about Java equals() and hashCode() Contracts at https://www.baeldung.com/java-equals-hashcode-contracts
+
+9. Implementing the Comparable interface properly
+
+Remember to have your custom types implemented the Comparable interface properly when their
+ elements are added to collections that sort elements by natural ordering, such as TreeSet and TreeMap.
+ It also helps to sort elements in a list collection based on the natural ordering of the elements.
+
+Read more about Comparable interface at https://www.javaguides.net/2018/06/guide-to-comparable-interface.html
+
+10. Using Arrays and Collections utility classes
+
+The Java Collections Framework provides two utility classes named Arrays and Collections.
+Arrays
+ Arrays utility class contains various methods for manipulating arrays (such as sorting and searching).
+ This class also contains a static factory that allows arrays to be viewed as lists.
+
+For example, the Arrays.asList() method returns a list collection containing the given elements,
+as you can see I used this method in many examples:
+
+    List<String> listFruits = Arrays.asList("Apple", "Banana", "Orange");
+    List<Integer> listIntegers = Arrays.asList(1, 2, 3, 4, 5, 6);
+    List<Double> listDoubles = Arrays.asList(0.1, 1.2, 2.3, 3.4);
+
+One more example, Arrays class provides many overloaded search() methods to search the specified
+array for the specified object using the binary search algorithm:
+
+                // binary search algorithm.
+                final String key = "abc";
+                String[] strArray = { "abc", "cdf", "pqr" };
+                int index = Arrays.binarySearch(strArray, key);
+                System.out.println(" String key found at index : " + index);
+
+                // Searches the specified array of ints for the specified value using
+                // the binary search algorithm.
+                int[] intArray = { 1, 2, 3, 4 };
+                index = Arrays.binarySearch(intArray, 3);
+                System.out.println(" String key found at index : " + index);
+                // Searches the specified array of bytes for the specified value using
+                // the binary search algorithm.
+                byte k = 1;
+                byte[] byteArray = { 1, 2, 3, 4, 5 };
+                Arrays.binarySearch(byteArray, k);
+
+Read more about Arrays utility class at https://www.javaguides.net/2018/08/java-util-arrays-class-api-guide.html
+
+Collections
+Collections class provides various useful methods for searching, sorting, modifying elements in a collection (almost on lists).
+
+Sorting example using Collections.sort() method:
+
+List<String> list = new LinkedList<>();
+list.add("element 2");
+list.add("element 1");
+list.add("element 4");
+list.add("element 3");
+// Sorts the specified list into ascending order, according to
+// the natural ordering of its elements.
+Collections.sort(list);
+for (String str : list) {
+     System.out.println(" sort elements in ascending order  --" + str);
+}
+Searching example using binarySearch() method:
+ List<String> list = new LinkedList<>();
+ list.add("element 2");
+ list.add("element 1");
+ list.add("element 4");
+ list.add("element 3");
+
+ Collections.sort(list);
+ for (String str : list) {
+      System.out.println(" sort elements in ascending order  --" + str);
+ }
+ int index = Collections.binarySearch(list, "element 4");
+ System.out.println("Element found at ::" + index);
+
+Read more about the Collections utility class at https://www.javaguides.net/2018/07/java-util-collections-class-methods-guide.html.
+
+Don't forget to look at these two utility classes for reusable methods, before looking for other libraries or writing your own code.
+
+11. Prefer concurrent collections over synchronized wrappers
+When you have to use collections in multi-threaded applications, consider using concurrent
+collections in the java.util.concurrent package instead of using the synchronized collections
+generated by the Collections.synchronizedXXX() methods.
+
+It’s because the concurrent collections are designed to provide maximum performance in concurrent applications,
+by implementing different synchronization mechanisms like copy-on-write, compare-and-swap, and special locks.
+The following list shows you how to choose some concurrent collections (on the right) which are equivalent
+ to the normal ones (on the left):
+
+- HashMap -> ConcurrentHashMap
+
+- ArrayList -> CopyOnWriteArrayList
+
+- TreeMap -> ConcurrentSkipListMap
+
+- PriorityQueue -> PriorityBlockingQueue
+
+12. Use EnumSet instead of bit fields
+
+What is the problem using bit fields?
+If the elements of an enumerated type are used primarily in sets, it is traditional to use the int enum pattern,
+assigning a different power of 2 to each constant. For example:
+
+// Bit field enumeration constants - OBSOLETE!
+public static class Text {
+    public static final int STYLE_BOLD              = 1 << 0; // 1
+    public static final int STYLE_ITALIC            = 1 << 1; // 2
+    public static final int STYLE_UNDERLINE         = 1 << 2; // 4
+    public static final int STYLE_STRIKE_THROUGH    = 1 << 3; // 8
+
+    public Text() {
+
+    }
+
+    // parameter is bitwise OR of zero or more STYLE_ constants
+    public void applyStyles(int styles) {
+     // hard to interpret a bit field
+     // no easy way to iterate over all of the elements represented by a bit field
+    }
+}
+
+What is the solution?
+
+We can use EnumSet class to solve this problem. The EnumSet class is used to efficiently represent
+ sets of values drawn from a single enum type. This class implements the Set interface.
+ Each EnumSet is represented as a bit vector. Internally, the EnumSet is represented as a bit vector.
+ If the enum type has 64 or fewer elements, the entire EnumSet is represented with a single long,
+ so its performance is comparable to a bit field
+
+import java.util.EnumSet;
+
+import java.util.Set;
+
+public class ExampleEnumSet {
+    /** EnumSet - a modern replacement for bit fields. */
+     public static class TextEnumSet {
+        public enum Style {
+            BOLD, ITALIC, UNDERLINE, STRIKETHROUGH;
+        }
+
+        /** Any set can be passed but EnumSet is best. */
+        public void applyStyles(Set<Style> styles) {
+        }
+    }
+
+    public static void main(String[] args) {
+        TextEnumSet t2 = new TextEnumSet();
+        t2.applyStyles(EnumSet.of(TextEnumSet.Style.BOLD, TextEnumSet.Style.ITALIC));
+    }
+}
+
+Read more about EnumSet Class APIs with examples - EnumSet Class in Java.

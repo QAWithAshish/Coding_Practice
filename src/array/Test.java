@@ -4,21 +4,31 @@ public class Test {
 
     public static void main(String[] args) {
 
+        int[] arr = {123, 244, 1123, 332, 12};
+        int maxValueIs = isMax(arr);
+        int minValueIs = isMin(arr);
+        System.out.println("Max => " + maxValueIs);
+        System.out.println("Min => " + minValueIs);
+    }
 
-      /*  for (int i=0;i<=3;i++){
-
-            for(int j=0;j<=i;j++){
-
-                System.out.print(" *");
+    public static int isMax(int[] arr) {
+        int max = arr[0];
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
             }
+        }
+        return max;
+    }
 
-            System.out.println();
-        }*/
-        String user1 = "ashish";
-        String user2 = "ashish";
+    public static int isMin(int[] arr) {
+        int min = arr[0];
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] < min) {
+                min = arr[i];
+            }
+        }
 
-
-        System.out.println(user1==user2);
-        System.out.println(user1.equals(user2));
+        return min;
     }
 }
