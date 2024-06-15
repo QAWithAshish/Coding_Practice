@@ -6,9 +6,19 @@ public class RemoveWhiteSpace {
 
         String str = "Hello   ashish how are you ";
 
-        String remStr = str.replaceAll(" ", "");
+        String output = byUsingReplace(str);
+        System.out.println("After removing spaces => " + output);
 
-        System.out.println(remStr);
+        String output2 = byUsingReplaceAll(str);
+        System.out.println(output2);
 
+    }
+
+    public static String byUsingReplace(String str) {
+        return str.replace(" ", "");
+    }
+
+    public static String byUsingReplaceAll(String str) {
+        return str.replaceAll("\\s", "");
     }
 }

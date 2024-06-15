@@ -20,23 +20,14 @@ public class AnagramCheck {
         }
     }
 
-    public static boolean areAnagrams(String str1, String str2) {
-        // Remove white spaces and convert strings to lower case
-        str1 = str1.replaceAll("\\s", "").toLowerCase();
-        str2 = str2.replaceAll("\\s", "").toLowerCase();
-
-        // Check if lengths are equal
-        if (str1.length() != str2.length()) {
+    public static boolean areAnagrams(String s1, String s2) {
+        if (s1.length() != s2.length()) {
             return false;
         }
-
-        // Convert strings to character arrays and sort them
-        char[] charArray1 = str1.toCharArray();
-        char[] charArray2 = str2.toCharArray();
-        Arrays.sort(charArray1);
-        Arrays.sort(charArray2);
-
-        // Compare sorted character arrays
-        return Arrays.equals(charArray1, charArray2);
+        char[] arr1 = s1.toCharArray();
+        char[] arr2 = s2.toCharArray();
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+        return Arrays.equals(arr1, arr2);
     }
 }
