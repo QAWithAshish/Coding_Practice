@@ -19,6 +19,8 @@ public class findDuplicateFromArray {
         for (int num : array) {
             if (!seen.add(num)) {
                 duplicate.add(num);
+            }else{
+                seen.add(num);
             }
         }
         return duplicate;
