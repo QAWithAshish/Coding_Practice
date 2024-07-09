@@ -18,7 +18,6 @@ public class CountAndReverseString {
         for(char c : email.toCharArray()){
             if(Character.isDigit(c)){
                 count+=Character.getNumericValue(c);
-                //count =count+Character.getNumericValue(c);
             }
         }
         System.out.println("Digit count from String :: "+count);

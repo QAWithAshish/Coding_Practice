@@ -16,7 +16,7 @@ public class ReverseAllOptions {
         System.out.println("Reverse string is with String Buffer :" + reverse);
     }
 
-    public static void reverseWithOldSchoolMethod(String str) {
+    public static void reverseUsingCharAt(String str) {
 
         String rev = "";
         int len = str.length();
@@ -24,6 +24,16 @@ public class ReverseAllOptions {
             rev = rev + str.charAt(i);
         }
         System.out.println("Reverse string is with OldSchoolMethod :" + rev);
+
+    }
+    public static void reverseUsingCharArray(String str) {
+
+        char[] chArray = str.toCharArray();
+        int len = str.length();
+        for (int i = len - 1; i >= 0; i--) {
+            System.out.print(chArray[i]);
+        }
+
 
     }
 
@@ -43,7 +53,8 @@ public class ReverseAllOptions {
 
         reverseWIthSBuilder("Hello Ashish");
         reverseWIthSBuffer("Oye Ashish");
-        reverseWithOldSchoolMethod("Trying first test");
+        reverseUsingCharAt("Trying first test");
         reverseWithJavaStreamAPI("Oye Ashish");
+        reverseUsingCharArray("Orr Bhai");
     }
 }
