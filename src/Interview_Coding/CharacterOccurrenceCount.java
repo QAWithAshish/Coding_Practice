@@ -5,7 +5,7 @@ public class CharacterOccurrenceCount {
     public static void main(String[] args) {
 
         String str = "Hello ashish how are you";
-        char charToGetCount = 'p';
+        char charToGetCount = 'a';
         int countOfChar = getCharCount(str, charToGetCount);
         System.out.println(charToGetCount + " occurred " + countOfChar + " times in given string");
     }

@@ -9,6 +9,7 @@ public class ReverseRightHalfPyramid {
          * * *
          * *
          *
+
      */
 
     public static void main(String[] args) {

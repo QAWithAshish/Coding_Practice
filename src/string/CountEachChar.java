@@ -7,7 +7,7 @@ public class CountEachChar {
     public static void main(String[] args) {
         String str="ashishbhalray@gmail.com";
 
-        HashMap<Character,Integer> map=new HashMap<>();
+     /*   HashMap<Character,Integer> map=new HashMap<>();
         for(int i=0;i<str.length();i++){
 
             if(map.containsKey(str.charAt(i))){
@@ -17,8 +17,8 @@ public class CountEachChar {
                 map.put(str.charAt(i),1);
             }
         }
-        System.out.println(map);
-        getString("ashishbhalray@gmail.com");
+        System.out.println(map);*/
+        getString(str);
     }
     public static void getString(String str){
         HashMap<Character,Integer> map=new HashMap<>();
