@@ -2,7 +2,7 @@ package pattern_programes;
 
 import java.util.Scanner;
 
-public class ReverseTriangleStarPyramid {
+public class InvertedFullPyramid {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
