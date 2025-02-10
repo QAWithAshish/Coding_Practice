@@ -1,7 +1,8 @@
 package array.interviewQuestions;
 
-import java.util.*;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 class SumOFMinMax {
     public static void main(String[] args) {
         ArrayList <Integer> a =new ArrayList<Integer>();

@@ -1,7 +1,5 @@
 package string;
 
-import java.util.HashMap;
-
 public class FinalCountWords {
 
 	public static void main(String[] args) {
